@@ -1,5 +1,9 @@
 const { connect } = require("../db/pool");
-const { initCreateTables } = require("../db/tables/index");
+const { createUserTable } = require("../db/tables/user");
+
+const initCreateTables = async () => {
+  await createUserTable();
+};
 
 const initDatabase = async (req, res, next) => {
   await connect();
