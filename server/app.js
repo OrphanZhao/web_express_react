@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+require("express-async-errors");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -24,9 +25,9 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  res.send(err.message);
+app.use((err, req, res, next) => {
+  res.json({ code: 10001, message: err.message });
+  next(err);
 });
 
 module.exports = app;
