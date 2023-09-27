@@ -46,7 +46,7 @@ const createUser = async ({ nickname, phone, password }) => {
 const updateUser = async ({ nickname, phone, password, id }) => {
   const pool = await connect();
   return await pool.query(`
-  upadte user set nickname='${nickname}', phone='${phone}', password='${password}' where id=${id};
+  update user set nickname='${nickname}', phone='${phone}', password='${password}' where id=${id};
   `);
 };
 
