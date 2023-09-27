@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const {
   queryUsers,
-  queryUser,
+  queryUserByPhone,
+  queryUserById,
   createUser,
+  updateUser,
   deleteUser,
 } = require("../db/tables/user");
 
@@ -11,7 +13,7 @@ const {
  * 获取用户列表
  */
 router.get("/", async (req, res) => {
-  const { nickname, phone } = req.params;
+  const {} = req.params;
   const [rows] = await queryUsers();
   res.json({ code: 0, message: "", data: { users: rows } });
 });
@@ -23,7 +25,7 @@ router.post("/", async (req, res) => {
   const { user = {} } = req.body;
   const { nickname, phone, password } = user;
   if (nickname && phone && password && phone.trim().length === 11) {
-    const [rows] = await queryUser({ phone });
+    const [rows] = await queryUserByPhone({ phone });
     await createUser({ nickname, phone, password });
     rows.length === 0
       ? res.json({ code: 0, message: "" })
@@ -32,7 +34,28 @@ router.post("/", async (req, res) => {
           message: "用户重复注册",
         });
   } else {
-    res.json({ code: 10001, message: "新建用户信息不全" });
+    res.json({ code: 10001, message: "用户信息不全" });
+  }
+});
+
+/**
+ * 更新用户
+ */
+router.put("/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const { user = {} } = req.body;
+  const { nickname, phone, password } = user;
+  if (userId && nickname && phone && password && phone.trim().length === 11) {
+    const [rows] = await queryUserById({ id: userId });
+    await updateUser({ nickname, phone, password, id: userId });
+    rows.length !== 0
+      ? res.json({ code: 0, message: "" })
+      : res.json({
+          code: 10001,
+          message: "未找到用户信息",
+        });
+  } else {
+    res.json({ code: 10001, message: "用户信息不全" });
   }
 });
 

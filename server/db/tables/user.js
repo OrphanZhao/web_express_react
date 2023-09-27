@@ -22,21 +22,31 @@ const queryUsers = async () => {
   `);
 };
 
-const queryUser = async ({ phone }) => {
+const queryUserByPhone = async ({ phone }) => {
   const pool = await connect();
   return await pool.query(`
   select * from user where phone='${phone}';
   `);
 };
 
-const createUser = async ({
-  nickname = null,
-  phone = null,
-  password = null,
-}) => {
+const queryUserById = async ({ id }) => {
+  const pool = await connect();
+  return await pool.query(`
+  select * from user where id=${id};
+  `);
+};
+
+const createUser = async ({ nickname, phone, password }) => {
   const pool = await connect();
   return await pool.query(`
   insert into user (nickname, phone, password, create_time) values ('${nickname}', '${phone}', '${password}', now());
+  `);
+};
+
+const updateUser = async ({ nickname, phone, password, id }) => {
+  const pool = await connect();
+  return await pool.query(`
+  upadte user set nickname='${nickname}', phone='${phone}', password='${password}' where id=${id};
   `);
 };
 
@@ -50,7 +60,9 @@ const deleteUser = async ({ id }) => {
 module.exports = {
   createUserTable,
   queryUsers,
-  queryUser,
+  queryUserByPhone,
+  queryUserById,
   createUser,
+  updateUser,
   deleteUser,
 };
