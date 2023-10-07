@@ -15,5 +15,13 @@ module.exports = {
       customSyntax: 'postcss-html'
     }
   ],
-  ignoreFiles: ['**/*.tsx', '**/*.ts', '**/*.json', '**/*.md']
+  ignoreFiles: ['**/*.tsx', '**/*.ts', '**/*.json', '**/*.md'],
+  rules: {
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: ['tailwind']
+      }
+    ]
+  }
 }

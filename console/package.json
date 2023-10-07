@@ -8,10 +8,10 @@
     "build": "tsc && vite build && yarn deploy",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"./**/*.{html,ts,tsx,json,md,less}\"",
-    "lint:style": "stylelint \"./**/*.{css,less,vue,html}\" --fix",
+    "lint:style": "stylelint \"./**/*.{css,less,html}\" --fix",
     "deploy": "rm -rf ../server/public/* && cp -fr ./dist/. ../server/public/",
-    "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
