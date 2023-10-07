@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom'
+import { Button } from 'antd'
 
 const Home = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div>
@@ -12,7 +12,7 @@ const Home = () => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
